@@ -1,0 +1,7 @@
+transform:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../superawesome.duckdb
+      threads: 4
