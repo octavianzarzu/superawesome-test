@@ -1,5 +1,11 @@
 /* 
 
+Motherduck:
+╰─$ duckdb superawesome.duckdb
+v1.1.0 fa5c2fe15f
+Enter ".help" for usage hints.
+D ATTACH 'md:';
+
 ## Assumptions
 
 **comic_characters_info table**
@@ -97,7 +103,7 @@ We will create a union of the two given that all questions require us to focus o
             sum(appearances) as appearances
         FROM "marvel-data"
         GROUP BY character_name
-    ),
+    )
     SELECT 'DC Comics' as publisher, character_name, appearances
     FROM clean_dc_data
     UNION 
