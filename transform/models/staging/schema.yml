@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: clean_comic_characters_info
+    columns:
+      - name: name
+        tests:
+          - not_null
+
+  - name: union_dc_marvel_data
+    columns:
+      - name: character_name
+

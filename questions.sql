@@ -114,7 +114,7 @@ We will create a union of the two given that all questions require us to focus o
 
 ## Questions
 
-1. * Top 10 villains by appearance per publisher 'DC', 'Marvel' and 'other'
+a. * Top 10 villains by appearance per publisher 'DC', 'Marvel' and 'other'
 
 We will start from the query above filtering duplicate names across names, and publishers (clean_comics_character_info) and join with the appearances in "dc-data" and "marvel-data".
 
