@@ -4,7 +4,7 @@
 DBT_PROJECT_DIR := transform
 DAGSTER_PROJECT_DIR := orchestration
 SEEDS_DIR := $(DBT_PROJECT_DIR)/seeds
-CSV_SOURCE_DIR := assignment/data
+CSVS_SOURCE_DIR := assignment/data
 VENV_DIR := venv
 
 # Default target
@@ -43,7 +43,7 @@ install_requirements: $(VENV_DIR)/bin/activate
 # Copy CSV files to seeds folder
 copy_seeds: install_requirements
 	mkdir -p $(SEEDS_DIR)
-	cp $(CSV_SOURCE_DIR)/*.csv $(SEEDS_DIR)/
+	cp $(CSVS_SOURCE_DIR)/*.csv $(SEEDS_DIR)/
 
 # # Initialize a Dagster project
 # init_dagster_project: init_dbt_project
@@ -52,7 +52,9 @@ copy_seeds: install_requirements
 # 	fi
 
 start_dagster: install_requirements
-	cd $(DAGSTER_PROJECT_DIR) && ../$(VENV_DIR)/bin/dagster dev
+	export DAGSTER_HOME=$(PWD)/orchestration/dagster_home && \
+	mkdir -p $(PWD)/orchestration/dagster_home && \
+	cd orchestration && ../$(VENV_DIR)/bin/dagster dev
 
 # Clean up
 clean:
