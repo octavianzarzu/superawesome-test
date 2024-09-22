@@ -71,19 +71,21 @@ The structure of a SQL model is as follows:
 
 Order in which to read: 
 
+```md
 transform/models
 └── staging
-    ├── [clean_comic_characters_info.sql](transform/models/staging/clean_comic_characters_info.sql) - 1
-    ├── [union_dc_marvel_data.sql](transform/models/staging/union_dc_marvel_data.sql) - 2
-    └── [superpowers_character.sql](transform/models/staging/superpowers_character.sql) - 3
-├── [a_top_10_villains_by_appearance_per_publisher.sql](transform/models/a_top_10_villains_by_appearance_per_publisher.sql) - 4
-├── [b_top_10_heroes_by_appearance_per_publisher.sql](transform/models/b_top_10_heroes_by_appearance_per_publisher.sql) - 5
-├── [c_bottom_10_villains_by_appearance_per_publisher.sql](transform/models/c_bottom_10_villains_by_appearance_per_publisher.sql) - 6
-├── [d_bottom_10_heroes_by_appearance_per_publisher.sql](transform/models/d_bottom_10_heroes_by_appearance_per_publisher.sql) - 7
-├── [e_top_10_most_common_superpowers.sql](transform/models/e_top_10_most_common_superpowers.sql) - 8
-├── [f_top_10_heroes.sql](transform/models/f_top_10_heroes.sql) - 9
-├── [g_five_most_common_superpowers.sql](transform/models/g_five_most_common_superpowers.sql) - 10
-├── [h_villain_hero_having_the_five_most_common_superpowers.sql](transform/models/h_villain_hero_having_the_five_most_common_superpowers.sql) - 11
+    ├── clean_comic_characters_info.sql - 1 - Cleans `comic_characters_info`. Used in Questions a, b, c, d, f
+    ├── union_dc_marvel_data.sql - 2 - Unions `dc-data` and `marvel-data`. Used in Questions a, b, c, d, e, f
+    └── superpowers_character.sql - 3 - Fetches only the name of a character and their superpower. Used in Questions e, g, h
+├── a_top_10_villains_by_appearance_per_publisher.sql - 4
+├── b_top_10_heroes_by_appearance_per_publisher.sql - 5
+├── c_bottom_10_villains_by_appearance_per_publisher.sql - 6
+├── d_bottom_10_heroes_by_appearance_per_publisher.sql - 7
+├── e_top_10_most_common_superpowers.sql - 8
+├── f_top_10_heroes.sql - 9 
+├── g_five_most_common_superpowers.sql - 10
+├── h_villain_hero_having_the_five_most_common_superpowers.sql - 11
+```
 
 
 ### Querying tables live 
