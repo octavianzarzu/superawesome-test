@@ -3,3 +3,4 @@ transform/target/
 transform/logs
 logs/
 orchestration/dagster_home
+*.duckdb
