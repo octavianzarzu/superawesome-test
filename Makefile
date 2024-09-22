@@ -18,10 +18,10 @@ $(VENV_DIR)/bin/activate:
 install_requirements: $(VENV_DIR)/bin/activate
 	$(VENV_DIR)/bin/pip install --upgrade pip
 	$(VENV_DIR)/bin/pip install dbt-duckdb
-	$(VENV_DIR)/bin/pip install streamlit
 	$(VENV_DIR)/bin/pip install dagster dagit
 	$(VENV_DIR)/bin/pip install dagster-dbt
 
+install_duckdb:
 	brew install duckdb
 
 # Initialize dbt project if it doesn't exist
