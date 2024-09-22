@@ -4,7 +4,7 @@ author: [@octavianzarzu](https://www.linkedin.com/in/octavianz/)
 This repository contains my submissions for the SuperAwesome Data Code Challenge.
 
 > [!TIP]
-> This private repository is accessible only via a secret token (part of the shared link). It cannot be found or accessed without the token.
+> This private repository is accessible only via a secret token included in the shared link. It cannot be found or accessed without the token.
 
 ## Contents
 
