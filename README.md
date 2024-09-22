@@ -101,7 +101,6 @@ show tables;
 | marvel-data                                               |
 | superpowers_character                                     |
 | union_dc_marvel_data                                      |
-|----------------------------------------------------------|
 |                           15 rows                        |
 
 ```
