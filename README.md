@@ -84,27 +84,25 @@ You can query individual models, like:
 show tables;
 ```
 
-┌────────────────────────────────────────────────────────┐
-│                          name                          │
-│                        varchar                         │
-├────────────────────────────────────────────────────────┤
-│ a_top_10_villains_by_appearance_per_publisher          │
-│ b_top_10_heroes_by_appearance_per_publisher            │
-│ c_bottom_10_villains_by_appearance_per_publisher       │
-│ clean_comic_characters_info                            │
-│ comic_characters_info                                  │
-│ d_bottom_10_heroes_by_appearance_per_publisher         │
-│ dc-data                                                │
-│ e_top_10_most_common_superpowers                       │
-│ f_top_10_heroes                                        │
-│ g_five_most_common_superpowers                         │
-│ h_villain_hero_having_the_five_most_common_superpowers │
-│ hero-abilities                                         │
-│ marvel-data                                            │
-│ superpowers_character                                  │
-│ union_dc_marvel_data                                   │
-├────────────────────────────────────────────────────────┤
-│                        15 rows                         │
+|                           name                           |
+|----------------------------------------------------------|
+| a_top_10_villains_by_appearance_per_publisher             |
+| b_top_10_heroes_by_appearance_per_publisher               |
+| c_bottom_10_villains_by_appearance_per_publisher          |
+| clean_comic_characters_info                               |
+| comic_characters_info                                     |
+| d_bottom_10_heroes_by_appearance_per_publisher            |
+| dc-data                                                   |
+| e_top_10_most_common_superpowers                          |
+| f_top_10_heroes                                           |
+| g_five_most_common_superpowers                            |
+| h_villain_hero_having_the_five_most_common_superpowers    |
+| hero-abilities                                            |
+| marvel-data                                               |
+| superpowers_character                                     |
+| union_dc_marvel_data                                      |
+|----------------------------------------------------------|
+|                           15 rows                        |
 
 ```
 select * from a_top_10_villains_by_appearance_per_publisher;
