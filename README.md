@@ -42,7 +42,7 @@ make clean
 
 Once `make all` command finishes, you can access Dagster in your browser at `localhost:3000`. Dagster reads the dbt project from the `transform/` folder.
 
-TO ADD IMAGE
+![](./images/superawesome-dagster.png)
 
 You can build the assets by clicking on the Materialize button.
 
