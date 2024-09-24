@@ -57,9 +57,6 @@ Once the first model is materialized, the superawesome.duckdb database file is c
 
 Each question is modeled as a dbt model. Some base models were created for reusability, as several questions share similar SQL snippets.
 
-TO ADD Structure of dbt models 
-
-
 ## Reading a model
 
 In each model, you’ll find the query that populates the table. Some models reference other base models using the `{{ ref('') }}` function. The output has been added as a comment to the query, along with the full query (without references).
@@ -140,6 +137,63 @@ Then create or replace the remote database as a clone of the local one:
 CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 ```
 
+![](./images/superawesome-motherduck.png)
 
+## Answers
 
+<details><summary>Base models </summary>
 
+/*  Assumptions
+
+1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as a villain (bad) or hero (good)
+2.  There is only one Character that is identified as both villain (bad) and hero (good): 
+
+    SELECT name
+    FROM comic_characters_info
+    GROUP BY name
+    HAVING count(distinct alignment) > 1;
+
+    # Atlas
+
+    However, this Character is labeled differently for different Publishers 
+
+    # Atlas | good | Marvel Comics
+    # Atlas | bad  | DC Comics
+
+    The majority of the questions focus specifically on a per publisher answer, so this doesn't represent an issue.
+
+3.  There are duplicate character names. There are also Characters across multiple publishers (3), such as Atlas above. Given that in no question we are interested
+    in other attributes from comic_characters_info other than name, alignment, and publisher we can safely 'drop' the remaining features in our analysis and only pick
+    one entry per character, publisher, and alignment. 
+
+    SELECT 
+        name, 
+        alignment, 
+        publisher
+    FROM comic_characters_info
+    QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
+    ORDER BY name;
+
+    # 718 rows (734 without filtering)
+
+    Some of the Characters have no publisher information but this doesn't affect our analysis. 
+
+    This subset will act as the base for any further analysis. - clean_comic_characters_info
+
+*/
+
+SELECT 
+    name, 
+    alignment, 
+    publisher
+FROM {{ ref('comic_characters_info') }} 
+QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
+ORDER BY name
+
+</details>
+
+<details><summary>Top 10 villains by appearance per publisher 'DC', 'Marvel' and 'other'</summary>
+
+hi
+
+</details>

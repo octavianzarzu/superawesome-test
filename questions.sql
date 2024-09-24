@@ -1,11 +1,5 @@
 /* 
 
-Motherduck:
-╰─$ duckdb superawesome.duckdb
-v1.1.0 fa5c2fe15f
-Enter ".help" for usage hints.
-D ATTACH 'md:';
-
 ## Assumptions
 
 **comic_characters_info table**
