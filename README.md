@@ -143,7 +143,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 <details><summary>Base models </summary>
 
-### model: clean_comic_characters_info
+### model: [clean_comic_characters_info](./transform/models/staging/clean_comic_characters_info.sql)
 
 1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as a villain (bad) or hero (good)
 2.  There is only one Character that is identified as both villain (bad) and hero (good): 
@@ -199,7 +199,7 @@ one entry per character, publisher, and alignment.
     ORDER BY name
     ```
 
-### model: union_dc_marvel_data
+### model: [union_dc_marvel_data](./transform/models/staging/union_dc_marvel_data.sql)
     
 **dc-data table**
 
@@ -272,7 +272,7 @@ one entry per character, publisher, and alignment.
     FROM clean_marvel_data
     ```
 
-### model: superpowers_character.sql
+### model: [superpowers_character](./transform/models/staging/superpowers_character.sql)
 
 1. Cleans up the Character name.
     
