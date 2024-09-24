@@ -53,6 +53,8 @@ dbt uses DuckDB to perform SQL transformations (configured in `transform/profile
 > [!WARNING]
 > The superawesome.duckdb database file is included in .gitignore and not tracked by Git due to its size (>100MB).
 
+Once the first model is materialized, the superawesome.duckdb database file is created.
+
 Each question is modeled as a dbt model. Some base models were created for reusability, as several questions share similar SQL snippets.
 
 TO ADD Structure of dbt models 
@@ -74,17 +76,17 @@ Order in which to read:
 ```md
 transform/models
 └── staging
-    ├── clean_comic_characters_info.sql - 1 - Cleans `comic_characters_info`. Used in Questions a, b, c, d, f
-    ├── union_dc_marvel_data.sql - 2 - Unions `dc-data` and `marvel-data`. Used in Questions a, b, c, d, e, f
-    └── superpowers_character.sql - 3 - Fetches only the name of a character and their superpower. Used in Questions e, g, h
-├── a_top_10_villains_by_appearance_per_publisher.sql - 4
-├── b_top_10_heroes_by_appearance_per_publisher.sql - 5
-├── c_bottom_10_villains_by_appearance_per_publisher.sql - 6
-├── d_bottom_10_heroes_by_appearance_per_publisher.sql - 7
-├── e_top_10_most_common_superpowers.sql - 8
-├── f_top_10_heroes.sql - 9 
-├── g_five_most_common_superpowers.sql - 10
-├── h_villain_hero_having_the_five_most_common_superpowers.sql - 11
+    ├── 1. clean_comic_characters_info.sql - Cleans `comic_characters_info`. Used in Questions a, b, c, d, f
+    ├── 2. union_dc_marvel_data.sql - Unions `dc-data` and `marvel-data`. Used in Questions a, b, c, d, e, f
+    └── 3. superpowers_character.sql - Fetches only the name of a character and their superpower. Used in Questions e, g, h
+├── 4. a_top_10_villains_by_appearance_per_publisher.sql
+├── 5. b_top_10_heroes_by_appearance_per_publisher.sql
+├── 6. c_bottom_10_villains_by_appearance_per_publisher.sql
+├── 7. d_bottom_10_heroes_by_appearance_per_publisher.sql
+├── 8. e_top_10_most_common_superpowers.sql
+├── 9. f_top_10_heroes.sql
+├── 10. g_five_most_common_superpowers.sql
+├── 11. h_villain_hero_having_the_five_most_common_superpowers.sql
 ```
 
 
