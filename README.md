@@ -157,22 +157,22 @@ GROUP BY name
 HAVING count(distinct alignment) > 1;
 ```
 
-    | Name  |
-    |-------|
-    | Atlas |
+| Name  |
+|-------|
+| Atlas |
 
-    However, this Character is labeled differently for different Publishers 
+However, this Character is labeled differently for different Publishers 
 
-    | Name  | Alignment | Publisher         |
-    |-------|-----------|-------------------|
-    | Atlas | good      | Marvel Comics     |
-    | Atlas | bad       | DC Comics         |
+| Name  | Alignment | Publisher         |
+|-------|-----------|-------------------|
+| Atlas | good      | Marvel Comics     |
+| Atlas | bad       | DC Comics         |
 
-    The majority of the questions focus specifically on a per publisher answer, so this doesn't represent an issue.
+The majority of the questions focus specifically on a per publisher answer, so this doesn't represent an issue.
 
 3.  There are duplicate character names. There are also Characters across multiple publishers (3), such as Atlas above. Given that in no question we are interested
-    in other attributes from comic_characters_info other than name, alignment, and publisher we can safely 'drop' the remaining features in our analysis and only pick
-    one entry per character, publisher, and alignment. 
+in other attributes from comic_characters_info other than name, alignment, and publisher we can safely 'drop' the remaining features in our analysis and only pick
+one entry per character, publisher, and alignment. 
 
 ```sql
 SELECT 
