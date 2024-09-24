@@ -12,7 +12,7 @@ This setup can be executed locally. It installs [DuckDB](https://duckdb.org/), [
 
 Here is a diagram illustrating the process:
 
-TO ADD IMAGE
+![](./images/superawesome-diagram.png)
 
 ## How to run it
 
