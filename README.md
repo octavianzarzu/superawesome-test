@@ -182,15 +182,16 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
         This subset will act as the base for any further analysis. - clean_comic_characters_info
 
-    */
 
-    SELECT 
-        name, 
-        alignment, 
-        publisher
-    FROM {{ ref('comic_characters_info') }} 
-    QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
-    ORDER BY name
+        ```sql 
+        SELECT 
+            name, 
+            alignment, 
+            publisher
+        FROM {{ ref('comic_characters_info') }} 
+        QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
+        ORDER BY name
+        ```
 
 </details>
 
