@@ -150,10 +150,12 @@ Assumptions
 1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as a villain (bad) or hero (good)
 2.  There is only one Character that is identified as both villain (bad) and hero (good): 
 
-    SELECT name
-    FROM comic_characters_info
-    GROUP BY name
-    HAVING count(distinct alignment) > 1;
+```sql
+SELECT name
+FROM comic_characters_info
+GROUP BY name
+HAVING count(distinct alignment) > 1;
+```
 
     | Name  |
     |-------|
@@ -162,7 +164,7 @@ Assumptions
     However, this Character is labeled differently for different Publishers 
 
     | Name  | Alignment | Publisher         |
-    |---------------------------------------|
+    |-------|-----------|-------------------|
     | Atlas | good      | Marvel Comics     |
     | Atlas | bad       | DC Comics         |
 
