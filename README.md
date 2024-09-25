@@ -663,7 +663,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 2. Now, let’s join the `hero-abilities` table to get the `overall_score`. As we can see, there are duplicate entries for character names since a character may appear in multiple comics. We will calculate the average `overall_score` for each character. 
 
-> But, we encounter an error! Strings `∞` and `-` are part of the data. Let's use a CASE statement to replace these values: ∞ as 10000 (max value in the dataset is less than 1000) and - as 0. 
+    > But, we encounter an error! Strings `∞` and `-` are part of the data. Let's use a CASE statement to replace these values: ∞ as 10000 (max value in the dataset is less than 1000) and - as 0. 
 
     ```sql
     SELECT 
@@ -719,6 +719,6 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     | Thor            | Marvel Comics  | 2259        |                      |
 
 
-    ! We have used a `LEFT JOIN` given tha hero-abilities dataset doesn't contain an entry for Thor (only Thor Girl).
+    > We have used a `LEFT JOIN` given tha hero-abilities dataset doesn't contain an entry for Thor (only Thor Girl).
 
 </details>
