@@ -328,4 +328,312 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
     > Note: Many rows are filtered out when joining with `clean_comics_character_info` (this can be observed by changing from an INNER JOIN to a FULL OUTER JOIN). While one might perform the analysis based on dc-data and marvel-data only, we cannot determine if a character is good or bad without performing this join.
 
+    Extended query without dbt ref's:
+
+    ```sql 
+
+    WITH clean_comics_character_info AS 
+    (
+        SELECT 
+            name, 
+            alignment, 
+            publisher,
+        FROM comic_characters_info
+        QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
+        ORDER BY name
+    ),
+    clean_dc_data AS 
+    (
+        SELECT 
+            split_part(name, ' (', 1) as character_name, 
+            sum(appearances) as appearances
+        FROM "dc-data"
+        GROUP BY character_name
+    ),
+    clean_marvel_data AS 
+    (
+        SELECT 
+            split_part(name, ' (', 1) as character_name, 
+            sum(appearances) as appearances
+        FROM "marvel-data"
+        GROUP BY character_name
+    ),
+    dc_marvel_data AS 
+    (
+        SELECT 'DC Comics' as publisher, character_name, appearances
+        FROM clean_dc_data
+        UNION 
+        SELECT 'Marvel Comics' as publisher, character_name, appearances
+        FROM clean_marvel_data
+    )
+    SELECT 
+        ccci.name,
+        ccci.publisher,
+        dmd.appearances
+    FROM clean_comics_character_info ccci
+        INNER JOIN dc_marvel_data dmd ON lower(ccci.name) = lower(dmd.character_name) AND ccci.publisher = dmd.publisher
+    WHERE ccci.alignment = 'bad'
+    QUALIFY ROW_NUMBER() OVER (partition by ccci.publisher order by dmd.appearances desc) <= 10
+    ORDER BY publisher asc, appearances desc
+    ```
+
+</details>
+
+
+<details><summary>Top 10 heroes by appearance per publisher 'DC', 'Marvel' and 'other'</summary>
+
+### model: [b_top_10_heroes_by_appearance_per_publisher.sql](./transform/models/b_top_10_heroes_by_appearance_per_publisher.sql)
+
+    Same as above, only replacing the alignment condition to be equal to `Good`.
+
+    ```sql
+    SELECT 
+        ccci.name,
+        ccci.publisher,
+        dmd.appearances
+    FROM {{ ref('clean_comic_characters_info') }} ccci
+        INNER JOIN {{ ref('union_dc_marvel_data') }} dmd ON lower(ccci.name) = lower(dmd.character_name) AND ccci.publisher = dmd.publisher
+    WHERE ccci.alignment = 'good'
+    QUALIFY ROW_NUMBER() OVER (partition by ccci.publisher order by dmd.appearances desc) <= 10
+    ORDER BY publisher asc, appearances desc
+    ```
+
+    | Name              | Publisher      | Appearances |
+    |-------------------|----------------|-------------|
+    | Batman            | DC Comics      | 3093        |
+    | Superman          | DC Comics      | 2496        |
+    | Wonder Woman      | DC Comics      | 1231        |
+    | Aquaman           | DC Comics      | 1121        |
+    | Flash             | DC Comics      | 1028        |
+    | Alan Scott        | DC Comics      | 969         |
+    | Alfred Pennyworth | DC Comics      | 930         |
+    | Kyle Rayner       | DC Comics      | 716         |
+    | Guy Gardner       | DC Comics      | 593         |
+    | John Stewart      | DC Comics      | 549         |
+    | Spider-Man        | Marvel Comics  | 4043        |
+    | Captain America   | Marvel Comics  | 3362        |
+    | Wolverine         | Marvel Comics  | 3062        |
+    | Iron Man          | Marvel Comics  | 2966        |
+    | Thor              | Marvel Comics  | 2259        |
+    | Hulk              | Marvel Comics  | 2019        |
+    | Vision            | Marvel Comics  | 1137        |
+    | Jean Grey         | Marvel Comics  | 1115        |
+    | Emma Frost        | Marvel Comics  | 886         |
+    | Luke Cage         | Marvel Comics  | 862         |
+
+</details>
+
+
+<details><summary>Bottom 10 villains by appearance per publisher 'DC', 'Marvel' and 'other'</summary>
+
+### model: [c_bottom_10_villains_by_appearance_per_publisher.sql](./transform/models/c_bottom_10_villains_by_appearance_per_publisher.sql)
+
+    Same query as in Question 1, but changing the ordering in the QUALIFY clause from 
+`dmd.appearances DESC` to `dmd.appearances ASC`, and updating the ORDER BY in the outer query for readability.
+
+    ```sql
+    SELECT 
+        ccci.name,
+        ccci.publisher,
+        dmd.appearances
+    FROM {{ ref('clean_comic_characters_info') }} ccci
+        INNER JOIN {{ ref('union_dc_marvel_data') }} dmd ON lower(ccci.name) = lower(dmd.character_name) AND ccci.publisher = dmd.publisher
+    WHERE ccci.alignment = 'bad'
+    QUALIFY ROW_NUMBER() OVER (partition by ccci.publisher order by dmd.appearances asc) <= 10
+    ORDER BY publisher asc, appearances asc
+    ```
+
+    | Name              | Publisher      | Appearances |
+    |-------------------|----------------|-------------|
+    | White Canary      | DC Comics      | 6           |
+    | Siren             | DC Comics      | 8           |
+    | Faora             | DC Comics      | 15          |
+    | Parademon         | DC Comics      | 15          |
+    | Atlas             | DC Comics      | 16          |
+    | Steppenwolf       | DC Comics      | 23          |
+    | Trigon            | DC Comics      | 58          |
+    | Mister Mxyzptlk   | DC Comics      | 64          |
+    | Amazo             | DC Comics      | 71          |
+    | Black Manta       | DC Comics      | 95          |
+    | Bird-Man          | Marvel Comics  | 1           |
+    | Tiger Shark       | Marvel Comics  | 1           |
+    | Abomination       | Marvel Comics  | 1           |
+    | Hydro-Man         | Marvel Comics  | 1           |
+    | Yellow Claw       | Marvel Comics  | 1           |
+    | Black Mamba       | Marvel Comics  | 1           |
+    | Apocalypse        | Marvel Comics  | 2           |
+    | Red Skull         | Marvel Comics  | 2           |
+    | Vulture           | Marvel Comics  | 2           |
+    | Snake-Eyes        | Marvel Comics  | 3           |
+
+</details>
+
+<details><summary> Bottom 10 heroes by appearance per publisher 'DC', 'Marvel' and 'other'</summary>
+
+### model: [d_bottom_10_heroes_by_appearance_per_publisher.sql](./transform/models/d_bottom_10_heroes_by_appearance_per_publisher.sql)
+
+    ```sql
+    SELECT 
+        ccci.name,
+        ccci.publisher,
+        dmd.appearances
+    FROM {{ ref('clean_comic_characters_info') }} ccci
+        INNER JOIN {{ ref('union_dc_marvel_data') }} dmd ON lower(ccci.name) = lower(dmd.character_name) AND ccci.publisher = dmd.publisher
+    WHERE ccci.alignment = 'good'
+    QUALIFY ROW_NUMBER() OVER (partition by ccci.publisher order by dmd.appearances asc) <= 10
+    ORDER BY publisher asc, appearances asc
+
+    ```
+
+    | Name              | Publisher      | Appearances |
+    |-------------------|----------------|-------------|
+    | White Canary      | DC Comics      | 6           |
+    | Siren             | DC Comics      | 8           |
+    | Faora             | DC Comics      | 15          |
+    | Parademon         | DC Comics      | 15          |
+    | Atlas             | DC Comics      | 16          |
+    | Steppenwolf       | DC Comics      | 23          |
+    | Trigon            | DC Comics      | 58          |
+    | Mister Mxyzptlk   | DC Comics      | 64          |
+    | Amazo             | DC Comics      | 71          |
+    | Black Manta       | DC Comics      | 95          |
+    | Bird-Man          | Marvel Comics  | 1           |
+    | Tiger Shark       | Marvel Comics  | 1           |
+    | Abomination       | Marvel Comics  | 1           |
+    | Hydro-Man         | Marvel Comics  | 1           |
+    | Yellow Claw       | Marvel Comics  | 1           |
+    | Black Mamba       | Marvel Comics  | 1           |
+    | Apocalypse        | Marvel Comics  | 2           |
+    | Red Skull         | Marvel Comics  | 2           |
+    | Vulture           | Marvel Comics  | 2           |
+    | Snake-Eyes        | Marvel Comics  | 3           |
+
+</details>
+
+<details><summary> Top 10 most common superpowers by creator 'DC', 'Marvel' and 'other'</summary>
+
+### model: [e_top_10_most_common_superpowers.sql](./transform/models/e_top_10_most_common_superpowers.sql)
+
+    1. Join superpowers with clean_dc_marvel_data (similar to Questions 1, 2, 3, and 4).
+
+    ```sql
+    WITH superpowers AS 
+    (
+    SELECT 
+            name,
+            superpowers
+    FROM {{ ref('superpowers_character') }}
+    ),
+    dc_marvel_data AS 
+    (
+        SELECT 
+            publisher, 
+            character_name
+        FROM {{ ref("union_dc_marvel_data")}}
+    ),
+    publisher_superpowers_join AS
+    (
+        SELECT 
+            sp.name,
+            dmd.publisher,
+            sp.superpowers
+        FROM superpowers sp
+            INNER JOIN dc_marvel_data dmd ON lower(sp.name) = lower(dmd.character_name)
+    ),
+    ..
+    ```
+
+    2. Convert the `superpowers` column into an array and using UNNEST so each superpower from the array appears on a separate row for each publisher.
+
+    ```sql 
+    ,
+    publisher_superpowers_join_unnest AS 
+    (
+    SELECT 
+        UNNEST(CAST(superpowers AS VARCHAR[])) as superpower, 
+        publisher
+    FROM publisher_superpowers_join
+    )
+    ...
+    ```
+
+    3. Count how many times each superpower is mentioned per publisher and apply the same QUALIFY clause as in Questions 1-4 to only output the top 10 per publisher.
+
+    ```sql 
+    SELECT 
+        replace(superpower,'''','') as superpower,
+        publisher,
+        count(*) as count  
+    FROM publisher_superpowers_join_unnest
+    GROUP BY superpower, publisher
+    QUALIFY ROW_NUMBER() OVER (partition by publisher order by count(*) desc) <= 10
+    ORDER BY publisher, count(*) DESC
+    ```
+
+    **Final query**:
+
+    ```sql 
+    WITH superpowers AS 
+    (
+    SELECT 
+            name,
+            superpowers
+    FROM {{ ref('superpowers_character') }}
+    ),
+    dc_marvel_data AS 
+    (
+        SELECT 
+            publisher, 
+            character_name
+        FROM {{ ref("union_dc_marvel_data")}}
+    ),
+    publisher_superpowers_join AS
+    (
+        SELECT 
+            sp.name,
+            dmd.publisher,
+            sp.superpowers
+        FROM superpowers sp
+            INNER JOIN dc_marvel_data dmd ON lower(sp.name) = lower(dmd.character_name)
+    ),
+    publisher_superpowers_join_unnest AS 
+    (
+    SELECT 
+        UNNEST(CAST(superpowers AS VARCHAR[])) as superpower, 
+        publisher
+    FROM publisher_superpowers_join
+    )
+    SELECT 
+        replace(superpower,'''','') as superpower,
+        publisher,
+        count(*) as count  
+    FROM publisher_superpowers_join_unnest
+    GROUP BY superpower, publisher
+    QUALIFY ROW_NUMBER() OVER (partition by publisher order by count(*) desc) <= 10
+    ORDER BY publisher, count(*) DESC
+    ```
+
+    | Name              | Publisher      | Appearances |
+    |-------------------|----------------|-------------|
+    | White Canary      | DC Comics      | 6           |
+    | Siren             | DC Comics      | 8           |
+    | Faora             | DC Comics      | 15          |
+    | Parademon         | DC Comics      | 15          |
+    | Atlas             | DC Comics      | 16          |
+    | Steppenwolf       | DC Comics      | 23          |
+    | Trigon            | DC Comics      | 58          |
+    | Mister Mxyzptlk   | DC Comics      | 64          |
+    | Amazo             | DC Comics      | 71          |
+    | Black Manta       | DC Comics      | 95          |
+    | Bird-Man          | Marvel Comics  | 1           |
+    | Tiger Shark       | Marvel Comics  | 1           |
+    | Abomination       | Marvel Comics  | 1           |
+    | Hydro-Man         | Marvel Comics  | 1           |
+    | Yellow Claw       | Marvel Comics  | 1           |
+    | Black Mamba       | Marvel Comics  | 1           |
+    | Apocalypse        | Marvel Comics  | 2           |
+    | Red Skull         | Marvel Comics  | 2           |
+    | Vulture           | Marvel Comics  | 2           |
+    | Snake-Eyes        | Marvel Comics  | 3           |
+
 </details>

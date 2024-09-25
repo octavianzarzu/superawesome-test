@@ -7,3 +7,30 @@ FROM {{ ref('clean_comic_characters_info') }} ccci
 WHERE ccci.alignment = 'good'
 QUALIFY ROW_NUMBER() OVER (partition by ccci.publisher order by dmd.appearances asc) <= 10
 ORDER BY publisher asc, appearances asc
+
+/* 
+
+    | Name              | Publisher      | Appearances |
+    |-------------------|----------------|-------------|
+    | Arsenal           | DC Comics      | 1           |
+    | Impulse           | DC Comics      | 1           |
+    | Green Arrow       | DC Comics      | 1           |
+    | Huntress          | DC Comics      | 1           |
+    | Oracle            | DC Comics      | 3           |
+    | Misfit            | DC Comics      | 3           |
+    | Enchantress       | DC Comics      | 5           |
+    | Osiris            | DC Comics      | 8           |
+    | Starfire          | DC Comics      | 15          |
+    | Azrael            | DC Comics      | 37          |
+    | Vulcan            | Marvel Comics  | 1           |
+    | Corsair           | Marvel Comics  | 1           |
+    | Dagger            | Marvel Comics  | 1           |
+    | Phoenix           | Marvel Comics  | 1           |
+    | Boom-Boom         | Marvel Comics  | 1           |
+    | Thing             | Marvel Comics  | 1           |
+    | Morph             | Marvel Comics  | 1           |
+    | Goliath           | Marvel Comics  | 1           |
+    | Man-Thing         | Marvel Comics  | 1           |
+    | Valkyrie          | Marvel Comics  | 1           |
+
+*/
