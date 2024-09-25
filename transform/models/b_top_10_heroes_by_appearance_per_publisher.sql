@@ -1,4 +1,8 @@
-/* Same as above, only replacing the alignment condition to be equal to `Good`. */
+/* 
+
+Same as above, only replacing the alignment condition to be equal to `Good`. 
+
+*/
 
 SELECT 
     ccci.name,

@@ -472,6 +472,9 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [d_bottom_10_heroes_by_appearance_per_publisher.sql](./transform/models/d_bottom_10_heroes_by_appearance_per_publisher.sql)
 
+1. Same query as in Question 2, but changing the ordering in the QUALIFY clause from 
+`dmd.appearances DESC` to `dmd.appearances ASC`, and updating the ORDER BY in the outer query for readability.
+
     ```sql
     SELECT 
         ccci.name,

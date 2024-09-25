@@ -1,3 +1,10 @@
+/* 
+
+Same query as in Question 2, but changing the ordering in the QUALIFY clause from 
+`dmd.appearances DESC` to `dmd.appearances ASC`, and updating the ORDER BY in the outer query for readability.
+
+*/
+
 SELECT 
     ccci.name,
     ccci.publisher,
