@@ -141,7 +141,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ## Answers
 
-<details><summary>Base models </summary>
+<details><summary>Base models (clean_comic_characters_info, union_dc_marvel_data, superpowers_character) </summary>
 
 ### model: [clean_comic_characters_info](./transform/models/staging/clean_comic_characters_info.sql)
 
