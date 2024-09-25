@@ -7,10 +7,13 @@ This repository contains my submissions for the SuperAwesome Data Code Challenge
 > This private repository is accessible only via a secret token included in the shared link. It cannot be found or accessed without the token.
 
 # Table of Contents
-1. [What is included](#example)
-2. [Example2](#example2)
-3. [Third Example](#third-example)
-4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
+1. [What is included](#what-is-included)
+2. [How to run it](#how-to-run-it)
+    2a. [Dagster](#dagster)
+    2b. [dbt](#dbt)
+3. [Reading a model](#reading-a-model)
+4. [Querying tables live](#querying-tables-live)
+5. [Answers](#answers)
 
 
 ## What is included?
@@ -73,7 +76,6 @@ The structure of a SQL model is as follows:
 1.	Explanation of the approach
 2.	The dbt query using one or more reference models
 3.	The output result set (which can also be viewed live in duckdb once all assets are materialized via Dagster)
-4.	The output query (without references)
 
 Order in which to read: 
 
