@@ -9,10 +9,10 @@ This repository contains my submissions for the SuperAwesome Data Code Challenge
 # Table of Contents
 1. [What is included](#what-is-included)
 2. [How to run it](#how-to-run-it)
-    2a. [Dagster](#dagster)
-    2b. [dbt](#dbt)
+    1. [Dagster](#dagster)
+    2. [dbt](#dbt)
 3. [Reading a model](#reading-a-model)
-4. [Querying tables live](#querying-tables-live)
+4. [Querying tables live in DuckDB](#querying-tables-live)
 5. [Answers](#answers)
 
 
@@ -808,7 +808,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     HAVING COUNT(*) = 5
     ```
 
-    # 199 rows returned. 
+    **199 rows returned.**
 
     | Name                    |
     |--------------------------|
