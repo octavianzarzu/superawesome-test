@@ -285,7 +285,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 <details><summary>Top 10 villains by appearance per publisher 'DC', 'Marvel' and 'other'</summary>
 
-### model: [a_top_10_villains_by_appearance_per_publisher](/.transform/models/a_top_10_villains_by_appearance_per_publisher.sql)
+### model: [a_top_10_villains_by_appearance_per_publisher](./transform/models/a_top_10_villains_by_appearance_per_publisher.sql)
 
 1. Starting from the [clean_comic_characters_info](./transform/models/staging/clean_comic_characters_info.sql) model, and joining with the appearance data from the [dc-data and marvel-data union](./transform/models/staging/union_dc_marvel_data.sql).
 
