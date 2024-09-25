@@ -326,7 +326,6 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     | Hela              | Marvel Comics  | 170         |
     | Dormammu          | Marvel Comics  | 132         |
 
-    > [!WARNING]
-    > Many rows are filtered out when joining with `clean_comics_character_info` (this can be observed by changing from an INNER JOIN to a FULL OUTER JOIN). While one might perform the analysis based on dc-data and marvel-data only, we cannot determine if a character is good or bad without performing this join.
+    > Note: Many rows are filtered out when joining with `clean_comics_character_info` (this can be observed by changing from an INNER JOIN to a FULL OUTER JOIN). While one might perform the analysis based on dc-data and marvel-data only, we cannot determine if a character is good or bad without performing this join.
 
 </details>
