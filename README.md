@@ -145,8 +145,8 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [clean_comic_characters_info](./transform/models/staging/clean_comic_characters_info.sql)
 
-    1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as either a villain (bad) or a hero (good).
-    2.  There is only one character that is identified as both a villain (bad) and a hero (good):
+1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as either a villain (bad) or a hero (good).
+2.  There is only one character that is identified as both a villain (bad) and a hero (good):
     
     ```sql
     SELECT name
@@ -168,7 +168,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     
     Most questions focus on publisher-specific answers, so this doesn’t pose an issue.
 
-    3.  There are duplicate character names, and some characters appear across multiple publishers (e.g., `Atlas` above). Since no question requires attributes from `comic_characters_info` beyond name, alignment, and publisher, we can safely ‘drop’ the remaining features and select only one entry per character, publisher, and alignment.
+3.  There are duplicate character names, and some characters appear across multiple publishers (e.g., `Atlas` above). Since no question requires attributes from `comic_characters_info` beyond name, alignment, and publisher, we can safely ‘drop’ the remaining features and select only one entry per character, publisher, and alignment.
 
     ```sql
     SELECT 
@@ -201,7 +201,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     
 **dc-data table**
 
-    1. The name represents a concatenation of the character name and the universe/comic name (in parentheses). We can extract only the first part (before the parentheses) using `split_part`, but there may be cases where the character name contains parentheses as well. Let’s look at those cases:
+1. The name represents a concatenation of the character name and the universe/comic name (in parentheses). We can extract only the first part (before the parentheses) using `split_part`, but there may be cases where the character name contains parentheses as well. Let’s look at those cases:
 
     ```sql
     SELECT split_part(name, '(', 1) as character_name 
@@ -240,9 +240,9 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 **marvel-data table** 
 
-    1. The same analysis can be done as for the `dc-data` file.
+1. The same analysis can be done as for the `dc-data` file.
 
-    2. Character names are lowercase in `marvel-data`, while in `dc-data` and `comic_characters_info` they are capitalized.
+2. Character names are lowercase in `marvel-data`, while in `dc-data` and `comic_characters_info` they are capitalized.
 
 
     ```sql union_dc_marvel_data
@@ -272,7 +272,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [superpowers_character](./transform/models/staging/superpowers_character.sql)
 
-    1. Cleans up the character name.
+1. Cleans up the character name.
     
     ```sql
     SELECT 
