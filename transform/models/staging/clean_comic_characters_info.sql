@@ -1,26 +1,31 @@
 /*  Assumptions
 
-1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as a villain (bad) or hero (good)
-2.  There is only one Character that is identified as both villain (bad) and hero (good): 
-
+    1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as either a villain (bad) or a hero (good).
+    2.  There is only one character that is identified as both a villain (bad) and a hero (good):
+    
+    ```sql
     SELECT name
     FROM comic_characters_info
     GROUP BY name
     HAVING count(distinct alignment) > 1;
+    ```
+    
+    | Name  |
+    |-------|
+    | Atlas |
+    
+    However, this character is labeled differently by different publishers:
+    
+    | Name  | Alignment | Publisher         |
+    |-------|-----------|-------------------|
+    | Atlas | good      | Marvel Comics     |
+    | Atlas | bad       | DC Comics         |
+    
+    Most questions focus on publisher-specific answers, so this doesn’t pose an issue.
 
-    # Atlas
+3   .  There are duplicate character names, and some characters appear across multiple publishers (e.g., `Atlas` above). Since no question requires attributes from `comic_characters_info` beyond name, alignment, and publisher, we can safely ‘drop’ the remaining features and select only one entry per character, publisher, and alignment.
 
-    However, this Character is labeled differently for different Publishers 
-
-    # Atlas | good | Marvel Comics
-    # Atlas | bad  | DC Comics
-
-    The majority of the questions focus specifically on a per publisher answer, so this doesn't represent an issue.
-
-3.  There are duplicate character names. There are also Characters across multiple publishers (3), such as Atlas above. Given that in no question we are interested
-    in other attributes from comic_characters_info other than name, alignment, and publisher we can safely 'drop' the remaining features in our analysis and only pick
-    one entry per character, publisher, and alignment. 
-
+    ```sql
     SELECT 
         name, 
         alignment, 
@@ -28,12 +33,24 @@
     FROM comic_characters_info
     QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
     ORDER BY name;
+    ```
 
-    # 718 rows (734 without filtering)
+    **718 rows (734 without filtering)**
 
-    Some of the Characters have no publisher information but this doesn't affect our analysis. 
+    Some characters lack publisher information, but this does not affect our analysis.
+    
+    This subset will act as the base for further analysis.
 
-    This subset will act as the base for any further analysis. - clean_comic_characters_info
+
+    ```sql clean_comic_characters_info
+    SELECT 
+        name, 
+        alignment, 
+        publisher
+    FROM {{ ref('comic_characters_info') }} 
+    QUALIFY row_number() OVER (PARTITION BY name, alignment, publisher) = 1
+    ORDER BY name
+    ```
 
 */
 

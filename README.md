@@ -145,8 +145,8 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [clean_comic_characters_info](./transform/models/staging/clean_comic_characters_info.sql)
 
-1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as a villain (bad) or hero (good)
-2.  There is only one Character that is identified as both villain (bad) and hero (good): 
+    1.  The `Alignment` column (good, bad, neutral, and 7 NA values) identifies a character as either a villain (bad) or a hero (good).
+    2.  There is only one character that is identified as both a villain (bad) and a hero (good):
     
     ```sql
     SELECT name
@@ -159,18 +159,16 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     |-------|
     | Atlas |
     
-    However, this Character is labeled differently for different Publishers 
+    However, this character is labeled differently by different publishers:
     
     | Name  | Alignment | Publisher         |
     |-------|-----------|-------------------|
     | Atlas | good      | Marvel Comics     |
     | Atlas | bad       | DC Comics         |
     
-    The majority of the questions focus specifically on a per publisher answer, so this doesn't represent an issue.
+    Most questions focus on publisher-specific answers, so this doesn’t pose an issue.
 
-3.  There are duplicate character names. There are also Characters across multiple publishers (3), such as Atlas above. Given that in no question we are interested
-in other attributes from comic_characters_info other than name, alignment, and publisher we can safely 'drop' the remaining features in our analysis and only pick
-one entry per character, publisher, and alignment. 
+    3.  There are duplicate character names, and some characters appear across multiple publishers (e.g., `Atlas` above). Since no question requires attributes from `comic_characters_info` beyond name, alignment, and publisher, we can safely ‘drop’ the remaining features and select only one entry per character, publisher, and alignment.
 
     ```sql
     SELECT 
@@ -184,9 +182,9 @@ one entry per character, publisher, and alignment.
 
     **718 rows (734 without filtering)**
 
-    Some Characters have no publisher information but this doesn't affect our analysis. 
+    Some characters lack publisher information, but this does not affect our analysis.
     
-    This subset will act as the base for any further analysis.
+    This subset will act as the base for further analysis.
 
 
     ```sql clean_comic_characters_info
@@ -203,7 +201,7 @@ one entry per character, publisher, and alignment.
     
 **dc-data table**
 
-1. The name represents a concatenation of Character (Universe/Comic name). We can extract only the first part (before '(') using split_part, however there might be cases where the name of the character contains '(' also. Let's look at those: 
+    1. The name represents a concatenation of the character name and the universe/comic name (in parentheses). We can extract only the first part (before the parentheses) using `split_part`, but there may be cases where the character name contains parentheses as well. Let’s look at those cases:
 
     ```sql
     SELECT split_part(name, '(', 1) as character_name 
@@ -214,8 +212,8 @@ one entry per character, publisher, and alignment.
 
     **17 rows returned, of which:**
     
-    - 12 have the same alive status (deceased or alive in both comics they appear in) and 
-    - 5 have a different status (deceased in one comic, alive in another comic).
+    - 12 have the same alive status (either deceased or alive in both comics they appear in)
+    - 5 have a different status (deceased in one comic, alive in another)
 
     The only noticeable entry is `Krypto`
 
@@ -231,7 +229,7 @@ one entry per character, publisher, and alignment.
     | Krypto the Earth Dog | Krypto the Earth Dog (New Earth) | Living Characters  | 24          |
     | Krypto 	           | Krypto (Clone) (New Earth)       |	Deceased Characters| 1           |
 
-    Even if it's a clone/duplicate entry, the status is different and the additional appearance will be counted towards the total. 
+    Even though it’s a clone/duplicate entry, the status is different, so the additional appearance will count toward the total.
 
     ```sql
     SELECT split_part(name, '(', 1) as character_name, 
@@ -242,9 +240,9 @@ one entry per character, publisher, and alignment.
 
 **marvel-data table** 
 
-1. The same analysis can be done as in the case of the dc-data table above. 
+    1. The same analysis can be done as for the `dc-data` file.
 
-2. Character names are lowercase, whereas in dc-data and comic_characters_info are capitalized. 
+    2. Character names are lowercase in `marvel-data`, while in `dc-data` and `comic_characters_info` they are capitalized.
 
 
     ```sql union_dc_marvel_data
@@ -274,7 +272,7 @@ one entry per character, publisher, and alignment.
 
 ### model: [superpowers_character](./transform/models/staging/superpowers_character.sql)
 
-1. Cleans up the Character name.
+    1. Cleans up the character name.
     
     ```sql
     SELECT 
