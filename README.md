@@ -384,7 +384,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [b_top_10_heroes_by_appearance_per_publisher.sql](./transform/models/b_top_10_heroes_by_appearance_per_publisher.sql)
 
-    Same as above, only replacing the alignment condition to be equal to `Good`.
+1. Same as above, only replacing the alignment condition to be equal to `Good`.
 
     ```sql
     SELECT 
@@ -428,7 +428,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [c_bottom_10_villains_by_appearance_per_publisher.sql](./transform/models/c_bottom_10_villains_by_appearance_per_publisher.sql)
 
-    Same query as in Question 1, but changing the ordering in the QUALIFY clause from 
+1. Same query as in Question 1, but changing the ordering in the QUALIFY clause from 
 `dmd.appearances DESC` to `dmd.appearances ASC`, and updating the ORDER BY in the outer query for readability.
 
     ```sql
@@ -514,7 +514,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
 ### model: [e_top_10_most_common_superpowers.sql](./transform/models/e_top_10_most_common_superpowers.sql)
 
-    1. Join superpowers with clean_dc_marvel_data (similar to Questions 1, 2, 3, and 4).
+1. Join superpowers with clean_dc_marvel_data (similar to Questions 1, 2, 3, and 4).
 
     ```sql
     WITH superpowers AS 
@@ -543,7 +543,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     ..
     ```
 
-    2. Convert the `superpowers` column into an array and using UNNEST so each superpower from the array appears on a separate row for each publisher.
+2. Convert the `superpowers` column into an array and using UNNEST so each superpower from the array appears on a separate row for each publisher.
 
     ```sql 
     ,
@@ -557,7 +557,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     ...
     ```
 
-    3. Count how many times each superpower is mentioned per publisher and apply the same QUALIFY clause as in Questions 1-4 to only output the top 10 per publisher.
+3. Count how many times each superpower is mentioned per publisher and apply the same QUALIFY clause as in Questions 1-4 to only output the top 10 per publisher.
 
     ```sql 
     SELECT 
@@ -570,7 +570,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     ORDER BY publisher, count(*) DESC
     ```
 
-    **Final query**:
+**Final query**:
 
     ```sql 
     WITH superpowers AS 
