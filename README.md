@@ -494,28 +494,28 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
 
     ```
 
-    | Name              | Publisher      | Appearances |
-    |-------------------|----------------|-------------|
-    | White Canary      | DC Comics      | 6           |
-    | Siren             | DC Comics      | 8           |
-    | Faora             | DC Comics      | 15          |
-    | Parademon         | DC Comics      | 15          |
-    | Atlas             | DC Comics      | 16          |
-    | Steppenwolf       | DC Comics      | 23          |
-    | Trigon            | DC Comics      | 58          |
-    | Mister Mxyzptlk   | DC Comics      | 64          |
-    | Amazo             | DC Comics      | 71          |
-    | Black Manta       | DC Comics      | 95          |
-    | Bird-Man          | Marvel Comics  | 1           |
-    | Tiger Shark       | Marvel Comics  | 1           |
-    | Abomination       | Marvel Comics  | 1           |
-    | Hydro-Man         | Marvel Comics  | 1           |
-    | Yellow Claw       | Marvel Comics  | 1           |
-    | Black Mamba       | Marvel Comics  | 1           |
-    | Apocalypse        | Marvel Comics  | 2           |
-    | Red Skull         | Marvel Comics  | 2           |
-    | Vulture           | Marvel Comics  | 2           |
-    | Snake-Eyes        | Marvel Comics  | 3           |
+    | Name         | Publisher     | Appearances |
+    |--------------|---------------|-------------|
+    | Arsenal      | DC Comics     | 1           |
+    | Impulse      | DC Comics     | 1           |
+    | Green Arrow  | DC Comics     | 1           |
+    | Huntress     | DC Comics     | 1           |
+    | Oracle       | DC Comics     | 3           |
+    | Misfit       | DC Comics     | 3           |
+    | Enchantress  | DC Comics     | 5           |
+    | Osiris       | DC Comics     | 8           |
+    | Starfire     | DC Comics     | 15          |
+    | Azrael       | DC Comics     | 37          |
+    | Thing        | Marvel Comics | 1           |
+    | Boomer       | Marvel Comics | 1           |
+    | Corsair      | Marvel Comics | 1           |
+    | Phoenix      | Marvel Comics | 1           |
+    | Dagger       | Marvel Comics | 1           |
+    | Valkyrie     | Marvel Comics | 1           |
+    | Man-Thing    | Marvel Comics | 1           |
+    | Goliath      | Marvel Comics | 1           |
+    | Morph        | Marvel Comics | 1           |
+    | Vulcan       | Marvel Comics | 1           |
 
 </details>
 
@@ -579,7 +579,7 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     ORDER BY publisher, count(*) DESC
     ```
 
-**Final query**:
+    **Final query**:
 
     ```sql 
     WITH superpowers AS 
@@ -622,28 +622,28 @@ CREATE OR REPLACE DATABASE superawesome_s FROM CURRENT_DATABASE();
     ORDER BY publisher, count(*) DESC
     ```
 
-    | Name              | Publisher      | Appearances |
-    |-------------------|----------------|-------------|
-    | White Canary      | DC Comics      | 6           |
-    | Siren             | DC Comics      | 8           |
-    | Faora             | DC Comics      | 15          |
-    | Parademon         | DC Comics      | 15          |
-    | Atlas             | DC Comics      | 16          |
-    | Steppenwolf       | DC Comics      | 23          |
-    | Trigon            | DC Comics      | 58          |
-    | Mister Mxyzptlk   | DC Comics      | 64          |
-    | Amazo             | DC Comics      | 71          |
-    | Black Manta       | DC Comics      | 95          |
-    | Bird-Man          | Marvel Comics  | 1           |
-    | Tiger Shark       | Marvel Comics  | 1           |
-    | Abomination       | Marvel Comics  | 1           |
-    | Hydro-Man         | Marvel Comics  | 1           |
-    | Yellow Claw       | Marvel Comics  | 1           |
-    | Black Mamba       | Marvel Comics  | 1           |
-    | Apocalypse        | Marvel Comics  | 2           |
-    | Red Skull         | Marvel Comics  | 2           |
-    | Vulture           | Marvel Comics  | 2           |
-    | Snake-Eyes        | Marvel Comics  | 3           |
+    | Name                | Publisher      | Appearances |
+    |---------------------|----------------|-------------|
+    | Agility             | DC Comics      | 79          |
+    | Stamina             | DC Comics      | 74          |
+    | Super Strength      | DC Comics      | 72          |
+    | Durability          | DC Comics      | 68          |
+    | Weapons Master      | DC Comics      | 67          |
+    | Intelligence        | DC Comics      | 66          |
+    | Reflexes            | DC Comics      | 66          |
+    | Super Speed         | DC Comics      | 53          |
+    | Weapon-based Powers | DC Comics      | 51          |
+    | Marksmanship        | DC Comics      | 50          |
+    | Agility             | Marvel Comics  | 134         |
+    | Super Strength      | Marvel Comics  | 129         |
+    | Durability          | Marvel Comics  | 128         |
+    | Stamina             | Marvel Comics  | 118         |
+    | Super Speed         | Marvel Comics  | 96          |
+    | Reflexes            | Marvel Comics  | 92          |
+    | Weapons Master      | Marvel Comics  | 90          |
+    | Intelligence        | Marvel Comics  | 87          |
+    | Accelerated Healing | Marvel Comics  | 82          |
+    | Marksmanship        | Marvel Comics  | 75          |
 
 </details>
 
