@@ -13,7 +13,7 @@ This repository contains my submissions for the SuperAwesome Data Code Challenge
 5. [Answers](#answers)
 
 
-## What is included?
+## What is included
 
 The setup can be executed locally. It installs [DuckDB](https://duckdb.org/), [dbt-duckdb](https://github.com/duckdb/dbt-duckdb), and [Dagster](https://dagster.io/) by running `make all`. All SQL questions have been modeled as dbt models.
 
