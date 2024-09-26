@@ -33,11 +33,13 @@ make all
 
 This will install the dependencies, copy the input CSVs as dbt seeds, and start the Dagster web server.
 
-Optionally, to install DuckDB CLI on Mac, run:
+Optionally, to install DuckDB CLI on Mac (via brew), run:
 
 ```
 make install_duckdb
 ```
+
+For installation on other platforms, such as Windows, check the official [DuckdDB Installation page](https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=win&download_method=package_manager&architecture=x86_64).
 
 To remove the virtual environment and logs, run:
 
