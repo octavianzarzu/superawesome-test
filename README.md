@@ -47,7 +47,7 @@ make clean
 
 ### Dagster
 
-Once `make all` command finishes, you can access Dagster in your browser at `localhost:3000`. Dagster reads the dbt project from the `transform/` folder.
+Once `make all` command finishes, you can access Dagster in your browser at [localhost:3000](http://localhost:3000/). Dagster reads the dbt project from the `transform/` folder.
 
 ![](./images/superawesome-dagster.png)
 
@@ -62,7 +62,7 @@ dbt uses DuckDB to perform SQL transformations (configured in `transform/profile
 
 Once the first model is materialized, the superawesome.duckdb database file is created.
 
-Each question is modeled as a dbt model. Some base models were created for reusability, as several questions share similar SQL snippets.
+Each question is modeled as a dbt model. Some base models were created for reusability, as several questions share similar SQL snippets. All models reside in [transform/models/](./transform/models/) folder.
 
 ## Reading a model
 
