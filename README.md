@@ -3,9 +3,6 @@ author: [@octavianzarzu](https://www.linkedin.com/in/octavianz/)
 
 This repository contains my submissions for the SuperAwesome Data Code Challenge.
 
-> [!TIP]
-> This private repository is accessible only via a secret token included in the shared link. It cannot be found or accessed without the token.
-
 # Table of Contents
 1. [What is included](#what-is-included)
 2. [How to run it](#how-to-run-it)
@@ -18,7 +15,7 @@ This repository contains my submissions for the SuperAwesome Data Code Challenge
 
 ## What is included?
 
-This setup can be executed locally. It installs [DuckDB](https://duckdb.org/), [dbt-duckdb](https://github.com/duckdb/dbt-duckdb), and [Dagster](https://dagster.io/). All SQL questions have been modeled as dbt models.
+The setup can be executed locally. It installs [DuckDB](https://duckdb.org/), [dbt-duckdb](https://github.com/duckdb/dbt-duckdb), and [Dagster](https://dagster.io/). All SQL questions have been modeled as dbt models.
 
 Here is a diagram illustrating the process:
 
