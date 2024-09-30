@@ -54,8 +54,7 @@ copy_seeds: install_requirements
 
 start_dagster: install_requirements
 	export DAGSTER_HOME=$(PWD)/orchestration/dagster_home && \
-	export VIRTUAL_ENV=$(VENV_DIR) && \
-    export PATH=$(VENV_DIR)/bin:$$PATH && \
+	source $(VENV_DIR)/bin/activate && \
 	mkdir -p $(PWD)/orchestration/dagster_home && \
 	cd orchestration && ../$(VENV_DIR)/bin/dagster dev
 
