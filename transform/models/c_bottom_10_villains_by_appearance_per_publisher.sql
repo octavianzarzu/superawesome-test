@@ -40,4 +40,4 @@ ORDER BY publisher asc, appearances asc
     | Vulture           | Marvel Comics  | 2           |
     | Snake-Eyes        | Marvel Comics  | 3           |
 
-/*
+*/
